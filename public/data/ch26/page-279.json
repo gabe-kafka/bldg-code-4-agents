@@ -4,11 +4,11 @@
   "page": 279,
   "section_range": [
     "26.11",
-    "26.13.1"
+    "26.13"
   ],
   "elements": [
     {
-      "id": "26-279-1",
+      "id": "p279_e1",
       "type": "body",
       "section": "26.11",
       "text": "The power spectral density of turbulence at the equivalent height of the structure z̄, evaluated at the structure's natural reduced frequency, N₁, is",
@@ -26,10 +26,10 @@
       }
     },
     {
-      "id": "26-279-2",
+      "id": "p279_e2",
       "type": "formula",
       "section": "26.11",
-      "text": "Rₙ = 7.47N₁/(1 + 10.3N₁)^(5/3)",
+      "text": "Rₙ = (7.47N₁)/(1 + 10.3N₁)^(5/3)  (26.11-13)",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -38,17 +38,17 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "Rₙ = 7.47N₁/(1 + 10.3N₁)^(5/3)",
+      "expression": "Rₙ = (7.47N₁)/(1 + 10.3N₁)^(5/3)",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-3",
+      "id": "p279_e3",
       "type": "formula",
       "section": "26.11",
-      "text": "N₁ = nLz/Vz",
+      "text": "N₁ = (nLz)/Vz  (26.11-14)",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -57,14 +57,14 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "N₁ = nLz/Vz",
+      "expression": "N₁ = (nLz)/Vz",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-4",
+      "id": "p279_e4",
       "type": "body",
       "section": "26.11",
       "text": "where Lz is defined in Equation (26.11-9). The size effect factors related to the height, breadth, and depth of the building are",
@@ -84,10 +84,10 @@
       }
     },
     {
-      "id": "26-279-5",
+      "id": "p279_e5",
       "type": "formula",
       "section": "26.11",
-      "text": "Rₕ = (1/ηₕ) - (1/2ηₕ²)(1 - e^(-2ηₕ))\nRᵦ = (1/ηᵦ) - (1/2ηᵦ²)(1 - e^(-2ηᵦ))\nRₗ = (1/ηₗ) - (1/2ηₗ²)(1 - e^(-2ηₗ))",
+      "text": "Rₕ = (1/ηₕ) - (1/2ηₕ²)(1 - e^(-2ηₕ))\nRB = (1/ηB) - (1/2ηB²)(1 - e^(-2ηB))\nRₗ = (1/ηₗ) - (1/2ηₗ²)(1 - e^(-2ηₗ))  (26.11-15a)",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -96,14 +96,14 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "Rₕ = (1/ηₕ) - (1/2ηₕ²)(1 - e^(-2ηₕ)); Rᵦ = (1/ηᵦ) - (1/2ηᵦ²)(1 - e^(-2ηᵦ)); Rₗ = (1/ηₗ) - (1/2ηₗ²)(1 - e^(-2ηₗ))",
+      "expression": "Rₕ = (1/ηₕ) - (1/2ηₕ²)(1 - e^(-2ηₕ)); RB = (1/ηB) - (1/2ηB²)(1 - e^(-2ηB)); Rₗ = (1/ηₗ) - (1/2ηₗ²)(1 - e^(-2ηₗ))",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-6",
+      "id": "p279_e6",
       "type": "body",
       "section": "26.11",
       "text": "where the turbulent coherence (correlation) factors in the corresponding directions, evaluated at the natural reduced frequency, are",
@@ -121,10 +121,10 @@
       }
     },
     {
-      "id": "26-279-7",
+      "id": "p279_e7",
       "type": "formula",
       "section": "26.11",
-      "text": "ηₕ = 4.6nH/Vz\nηᵦ = 4.6nB/Vz\nηₗ = 15.4nL/Vz",
+      "text": "ηₕ = 4.6nₕH/V̄z\nηB = 4.6nB/V̄z\nηₗ = 15.4nₗL/V̄z  (26.11-15b)",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -133,14 +133,14 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "ηₕ = 4.6nH/Vz; ηᵦ = 4.6nB/Vz; ηₗ = 15.4nL/Vz",
+      "expression": "ηₕ = 4.6nₕH/V̄z; ηB = 4.6nB/V̄z; ηₗ = 15.4nₗL/V̄z",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-8",
+      "id": "p279_e8",
       "type": "body",
       "section": "26.11",
       "text": "The mean hourly wind speed (in ft/s or m/s) at the equivalent structure height, z̄, is",
@@ -158,10 +158,10 @@
       }
     },
     {
-      "id": "26-279-9",
+      "id": "p279_e9",
       "type": "formula",
       "section": "26.11",
-      "text": "V̄z = b̄(z̄/33)^α(88/60)V",
+      "text": "V̄z = b̄(z̄/33)^ᾱ(88/60)V  (26.11-16)",
       "cross_references": [
         "Table 26.11-1"
       ],
@@ -172,17 +172,17 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "V̄z = b̄(z̄/33)^α(88/60)V",
+      "expression": "V̄z = b̄(z̄/33)^ᾱ(88/60)V",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-10",
+      "id": "p279_e10",
       "type": "formula",
       "section": "26.11",
-      "text": "V̄z = b̄(z̄/10)^α V",
+      "text": "V̄z = b̄(z̄/10)^ᾱV  (26.11-16.SI)",
       "cross_references": [
         "Table 26.11-1"
       ],
@@ -193,17 +193,17 @@
         "y_end": 1
       },
       "column": "left",
-      "expression": "V̄z = b̄(z̄/10)^α V",
+      "expression": "V̄z = b̄(z̄/10)^ᾱV",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-11",
+      "id": "p279_e11",
       "type": "body",
       "section": "26.11",
-      "text": "where b̄ and α are constants listed in Table 26.11-1, z̄ is obtained from Section 26.11.4, and V is the basic wind speed, mi/h (m/s).",
+      "text": "where b̄ and ᾱ are constants listed in Table 26.11-1, z̄ is obtained from Section 26.11.4, and V is the basic wind speed, mi/h (m/s).",
       "cross_references": [
         "Table 26.11-1",
         "26.11.4"
@@ -221,7 +221,7 @@
       }
     },
     {
-      "id": "26-279-12",
+      "id": "p279_e12",
       "type": "provision",
       "section": "26.11.6",
       "text": "**26.11.6 Rational Analysis** In lieu of the procedure defined in Sections 26.11.4 and 26.11.5, determination of the gust-effect factor by any rational analysis defined in the recognized literature is permitted.",
@@ -243,10 +243,10 @@
       }
     },
     {
-      "id": "26-279-13",
+      "id": "p279_e13",
       "type": "provision",
       "section": "26.11.7",
-      "text": "**26.11.7 Limitations** Where combined gust-effect factors and pressure coefficients (GCₚ), (GCₚᵢ), and (GCₚf) are given in figures and tables, the gust-effect factor shall not be determined separately.",
+      "text": "**26.11.7 Limitations** Where combined gust-effect factors and pressure coefficients (GCp), (GCpi), and (GCpf) are given in figures and tables, the gust-effect factor shall not be determined separately.",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -262,7 +262,7 @@
       }
     },
     {
-      "id": "26-279-14",
+      "id": "p279_e14",
       "type": "provision",
       "section": "26.12",
       "text": "**26.12 ENCLOSURE CLASSIFICATION**",
@@ -281,12 +281,12 @@
       }
     },
     {
-      "id": "26-279-15",
+      "id": "p279_e15",
       "type": "provision",
       "section": "26.12.1",
-      "text": "**26.12.1 General** For the purpose of determining internal pressure coefficients, buildings and other structures for which internal pressure coefficients (GCₚᵢ) apply shall be classified as enclosed, partially enclosed, partially open, or open, as defined in Section 1.2. If a building or other structure satisfies both the \"open\" and \"partially enclosed\" enclosure classification definition, it shall be classified as a \"partially open\" building or other structure.",
+      "text": "**26.12.1 General** For the purpose of determining internal pressure coefficients, buildings and other structures for which internal pressure coefficients (GCpi) apply shall be classified as enclosed, partially enclosed, partially open, or open, as defined in Section 26.2. If a building or other structure satisfies both the \"open\" and \"partially enclosed\" enclosure classification definitions, it shall be classified as a \"partially open\" building or other structure.",
       "cross_references": [
-        "1.2"
+        "26.2"
       ],
       "bbox": {
         "x_start": 0,
@@ -294,7 +294,7 @@
         "y_start": 0,
         "y_end": 1
       },
-      "column": "left",
+      "column": "right",
       "heading": true,
       "metadata": {
         "extracted_by": "vision-clone",
@@ -302,29 +302,10 @@
       }
     },
     {
-      "id": "26-279-16",
+      "id": "p279_e16",
       "type": "provision",
       "section": "26.12.2",
-      "text": "**26.12.2 Openings** A determination shall be made of the amount of openings in the building envelope for use in determining the",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0,
-        "x_end": 1,
-        "y_start": 0,
-        "y_end": 1
-      },
-      "column": "left",
-      "heading": true,
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      }
-    },
-    {
-      "id": "26-279-17",
-      "type": "body",
-      "section": "26.12.2",
-      "text": "enclosure classification. To make this determination, each building wall shall be assumed as the windward wall for consideration of the amount of openings present with respect to the remaining building envelope.",
+      "text": "**26.12.2 Openings** A determination shall be made of the amount of openings in the building envelope for use in determining the enclosure classification. To make this determination, each building wall shall be assumed as the windward wall for consideration of the amount of openings present with respect to the remaining building envelope.",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -333,13 +314,14 @@
         "y_end": 1
       },
       "column": "right",
+      "heading": true,
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
       }
     },
     {
-      "id": "26-279-18",
+      "id": "p279_e17",
       "type": "provision",
       "section": "26.12.3",
       "text": "**26.12.3 Protection of Glazed Openings** Glazed openings in Risk Category II, III, or IV buildings located in hurricane-prone regions shall be protected as specified in this section.",
@@ -358,7 +340,7 @@
       }
     },
     {
-      "id": "26-279-19",
+      "id": "p279_e18",
       "type": "provision",
       "section": "26.12.3.1",
       "text": "**26.12.3.1 Wind-Borne Debris Regions** Glazed openings shall be protected in accordance with Section 26.12.3.2 in the following locations:",
@@ -379,10 +361,10 @@
       }
     },
     {
-      "id": "26-279-20",
+      "id": "p279_e19",
       "type": "body",
       "section": "26.12.3.1",
-      "text": "1. Within 1 mi (1.6 km) of the mean high water line where an Exposure D condition exists upwind of the waterline and the basic wind speed is equal to or greater than 130 mi/h (58 m/s), or",
+      "text": "1. Within 1 mi (1.6 km) of the mean high water line where an Exposure D condition exists upwind of the waterline and the basic wind speed is equal to or greater than 130 mi/h (58 m/s), or\n2. In areas where the basic wind speed is equal to or greater than 140 mi/h (63 m/s).",
       "cross_references": [],
       "bbox": {
         "x_start": 0,
@@ -397,25 +379,7 @@
       }
     },
     {
-      "id": "26-279-21",
-      "type": "body",
-      "section": "26.12.3.1",
-      "text": "2. In areas where the basic wind speed is equal to or greater than 140 mi/h (63 m/s).",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0,
-        "x_end": 1,
-        "y_start": 0,
-        "y_end": 1
-      },
-      "column": "right",
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      }
-    },
-    {
-      "id": "26-279-22",
+      "id": "p279_e20",
       "type": "body",
       "section": "26.12.3.1",
       "text": "For Risk Category II buildings and other structures and Risk Category III buildings and other structures, except health care facilities, the wind-borne debris region shall be based on Figure 26.5-1B. For Risk Category III health care facilities, the wind-borne debris region shall be based on Figure 26.5-1C. For Risk Category IV buildings and other structures, the wind-borne debris region shall be based on Figure 26.5-1D. Risk categories shall be determined in accordance with Section 1.5.",
@@ -438,7 +402,7 @@
       }
     },
     {
-      "id": "26-279-23",
+      "id": "p279_e21",
       "type": "exception",
       "section": "26.12.3.1",
       "text": "**EXCEPTION:** Glazing located more than 60 ft (18.3 m) above the ground and more than 30 ft (9.2 m) above aggregate-surfaced roofs, including roofs with gravel or stone ballast, located within 1,500 ft (458 m) of the building shall be permitted to be unprotected.",
@@ -456,13 +420,13 @@
       }
     },
     {
-      "id": "26-279-24",
+      "id": "p279_e22",
       "type": "provision",
       "section": "26.12.3.2",
-      "text": "**26.12.3.2 Protection Requirements for Glazed Openings** Glazing in buildings requiring protection shall be impact resistant or be protected with an impact-protective system. Impact-protective systems and impact-resistant glazing shall be subjected to missile test and cyclic pressure differential tests in accordance with ASTM E1996 as applicable. Testing to demonstrate compliance with ASTM E1996 shall be in accordance with ASTM E1886. Impact-resistant glazing and impact-protective systems shall comply with the postfall criteria of Section 2405 of ASTM E1996 based on the missile required by Table 3 or Table 4 of ASTM E1996. Glazing in additional doors, rolling doors, flexible doors shall be subjected to missile tests and cyclic pressure differential tests in accordance with ANSI/DASMA 115 as applicable.",
+      "text": "**26.12.3.2 Protection Requirements for Glazed Openings** Glazing in buildings requiring protection shall be impact resistant or protected with an impact-protective system. Impact-protective systems and impact-resistant glazing shall be subjected to missile test and cyclic pressure differential tests in accordance with ASTM E1886 and ASTM E1996 as applicable. Testing to demonstrate compliance with ASTM E1996 shall be in accordance with ASTM E1886. Impact-resistant glazing and impact-protective systems shall comply with the pass/fail criteria of Section 5 of ASTM E1996 based on the missile required by Table 3 or Table 4 of ASTM E1996. Glazing in additional doors, rollup doors, flexible doors shall be subjected to missile tests and cyclic pressure differential tests in accordance with ANSI/DASMA 115 as applicable.",
       "cross_references": [
-        "ASTM E1996",
         "ASTM E1886",
+        "ASTM E1996",
         "ANSI/DASMA 115"
       ],
       "bbox": {
@@ -479,7 +443,7 @@
       }
     },
     {
-      "id": "26-279-25",
+      "id": "p279_e23",
       "type": "body",
       "section": "26.12.3.2",
       "text": "Glazing and impact-protective systems in buildings and other structures classified as Risk Category IV in accordance with Section 1.5 shall comply with the \"enhanced protection\" requirements of Table 3 of ASTM E1996. Glazing and impact-protective systems in all other buildings covered by Section 26.12.3.1 shall comply with the \"basic protection\" requirements of Table 3 of ASTM E1996.",
@@ -501,7 +465,7 @@
       }
     },
     {
-      "id": "26-279-26",
+      "id": "p279_e24",
       "type": "exception",
       "section": "26.12.3.2",
       "text": "**EXCEPTION:** When approved, other testing methods and/or performance criteria shall be permitted to be used to demonstrate compliance with all provisions of this section.",
@@ -519,50 +483,10 @@
       }
     },
     {
-      "id": "26-279-27",
+      "id": "p279_e25",
       "type": "provision",
       "section": "26.13",
       "text": "**26.13 INTERNAL PRESSURE COEFFICIENTS**",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0,
-        "x_end": 1,
-        "y_start": 0,
-        "y_end": 1
-      },
-      "column": "right",
-      "heading": true,
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      }
-    },
-    {
-      "id": "26-279-28",
-      "type": "body",
-      "section": "26.13",
-      "text": "Internal pressure coefficients (GCₚᵢ) shall be determined from Table 26.13-1 based on building enclosure classifications determined from Section 26.12.",
-      "cross_references": [
-        "Table 26.13-1",
-        "26.12"
-      ],
-      "bbox": {
-        "x_start": 0,
-        "x_end": 1,
-        "y_start": 0,
-        "y_end": 1
-      },
-      "column": "right",
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      }
-    },
-    {
-      "id": "26-279-29",
-      "type": "provision",
-      "section": "26.13.1",
-      "text": "**26.13.1 Reduction Factor for Large-Volume Buildings, Rᵢ** For a partially enclosed building containing a single,",
       "cross_references": [],
       "bbox": {
         "x_start": 0,

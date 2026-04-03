@@ -334,20 +334,32 @@ BOLD TEXT:
 - EVERY bold word/phrase must be marked with ** or heading:true
 
 ELEMENT TYPES:
-- "provision": Requirements containing "shall"
+- "provision": Requirements containing "shall", "shall be", "shall be permitted", "must", "is required"
 - "definition": ALL-CAPS terms followed by definition text
 - "formula": Equations with expression and parameters
-- "table": Structured data — extract ALL columns and ALL rows completely
-- "figure": Diagrams/charts — see FIGURE RULES below
+- "table": ANY structured data with columns and rows — see TABLE RULES below
+- "figure": Diagrams/charts/maps — see FIGURE RULES below
 - "exception": Starting with "Exception:"
 - "user_note": Starting with "User Note:"
 - "body": Everything else
 
 FULL-WIDTH ELEMENTS: If a table or figure clearly spans both columns, set column: "full" and include it — but only if it's genuinely full-width.
 
+TABLE RULES — CRITICAL:
+- ANY data arranged in columns and rows is a table. This includes:
+  - Small inline tables (e.g., "Special Wind Region" territory tables with Location/V columns)
+  - Coefficient lookup tables (e.g., Table 26.6-1, Table 26.10-1)
+  - Tables embedded near or below figures
+  - Tables with only 3-5 rows — these are STILL tables, not body text
+- Every table MUST have "columns" (string[]) and "rows" (string[][]) with ALL data extracted exactly
+- A table is NOT a figure. If it has gridlines or columnar data, it's a table element, not part of a figure.
+- If a table appears below a figure on the same page, it is a SEPARATE element from the figure.
+
 FIGURE RULES — CRITICAL:
 - Figures are ATOMIC. One element = the image + its caption + a structured description.
-- NEVER extract text that is INSIDE a diagram/flowchart/map as separate body elements. If text is visually inside a figure (flowchart nodes, map labels, chart annotations), it goes in figure_description, NOT as standalone elements.
+- NEVER extract text that is INSIDE a diagram/flowchart/map as separate body elements.
+- A figure is a visual diagram, chart, map, or illustration — NOT tabular data.
+- Tables near a figure are separate elements. Do not merge a table into a figure.
 - caption: exact caption line as printed below the figure
 - figure_description: rich text describing everything inside the figure for agents who can't see images
 - bbox: tightly enclose only the figure + caption. Content area is x≈0.06 to x≈0.94. Never 0.0 or 1.0.
@@ -534,42 +546,46 @@ export async function clonePageFull(
   const leftOnly = leftElements.filter(e => e.column === 'left')
   const rightOnly = rightElements.filter(e => e.column === 'right')
 
-  // Deduplicate full-width elements
-  const seenFullText = new Set<string>()
-  const dedupedFull: PageElement[] = []
-  for (const el of [...fullFromLeft, ...fullFromRight]) {
-    const key = el.text.slice(0, 50).toLowerCase()
-    if (!seenFullText.has(key)) {
-      seenFullText.add(key)
-      dedupedFull.push(el)
+  // Global dedup: collect ALL elements, deduplicate by text prefix.
+  // When duplicates exist, prefer: full > left/right, and longer text > shorter.
+  const allRaw = [
+    ...leftElements.map(e => ({ ...e, _source: 'left' as const })),
+    ...rightElements.map(e => ({ ...e, _source: 'right' as const })),
+  ]
+
+  const seen = new Map<string, { el: PageElement; source: string }>()
+  const dedupedAll: PageElement[] = []
+
+  for (const e of allRaw) {
+    const key = e.text.slice(0, 40).toLowerCase().trim()
+    if (!key) { dedupedAll.push(e); continue }
+
+    const existing = seen.get(key)
+    if (existing) {
+      // Duplicate found — keep the better one
+      const keepNew = e.text.length > existing.el.text.length ||
+        (e.column === 'full' && existing.el.column !== 'full')
+      if (keepNew) {
+        // Replace existing with this one
+        const idx = dedupedAll.indexOf(existing.el)
+        if (idx >= 0) dedupedAll[idx] = e
+        seen.set(key, { el: e, source: e._source })
+        console.log(`    Dedup: replaced ${existing.source} with ${e._source} "${key.slice(0, 35)}..."`)
+      } else {
+        console.log(`    Dedup: skipped ${e._source} duplicate "${key.slice(0, 35)}..."`)
+      }
+    } else {
+      seen.set(key, { el: e, source: e._source })
+      dedupedAll.push(e)
     }
   }
 
-  // Cross-column dedup: if the same text appears in both left and right,
-  // the model extracted a section from the wrong column. Remove duplicates
-  // by checking text similarity. Keep the element with the longer text.
-  const rightTextKeys = new Set(rightOnly.map(e => e.text.slice(0, 40).toLowerCase()))
-  const dedupedLeft = leftOnly.filter(e => {
-    const key = e.text.slice(0, 40).toLowerCase()
-    if (rightTextKeys.has(key)) {
-      // Duplicate — keep the right column version (skip this left one)
-      console.log(`    Dedup: skipping left-column duplicate "${e.text.slice(0, 40)}..."`)
-      return false
-    }
-    return true
-  })
+  // Remove _source helper field and separate back
+  const dedupedLeft = dedupedAll.filter(e => e.column === 'left')
+  const dedupedRight = dedupedAll.filter(e => e.column === 'right')
+  const dedupedFull = dedupedAll.filter(e => e.column === 'full')
 
-  const leftTextKeys = new Set(dedupedLeft.map(e => e.text.slice(0, 40).toLowerCase()))
-  const dedupedRight = rightOnly.filter(e => {
-    const key = e.text.slice(0, 40).toLowerCase()
-    if (leftTextKeys.has(key)) {
-      console.log(`    Dedup: skipping right-column duplicate "${e.text.slice(0, 40)}..."`)
-      return false
-    }
-    return true
-  })
-
-  // Combine all elements and sort by y_start position
+  // Combine all deduped elements and sort by y_start position
   const allElements = [...dedupedLeft, ...dedupedRight, ...dedupedFull]
   allElements.sort((a, b) => a.bbox.y_start - b.bbox.y_start)
 
