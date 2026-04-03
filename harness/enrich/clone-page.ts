@@ -226,6 +226,8 @@ function normalizePage(
     elements.push(el)
   }
 
+  fixFormulas(elements)
+
   const sections = [...new Set(elements.map((e) => e.section))].filter(Boolean).sort()
 
   return {
@@ -246,6 +248,45 @@ function normalizePage(
  * - "**Entire paragraph is bold for no reason**" → strip markers
  * - "**TERM:** definition text" → correct, leave alone
  */
+/**
+ * Post-process: merge "where" blocks into preceding formula parameters.
+ * Also split combined formulas (multiple equation numbers in one element).
+ */
+export function fixFormulas(elements: PageElement[]): void {
+  // Merge "where" blocks into preceding formula
+  for (let i = elements.length - 1; i >= 0; i--) {
+    const el = elements[i]
+    if (el.type !== 'body' && el.type !== 'provision') continue
+    const text = el.text.toLowerCase().trim()
+    if (!text.startsWith('where ') && !text.startsWith('where:')) continue
+
+    // Find the nearest preceding formula in the same column
+    let formulaIdx = -1
+    for (let j = i - 1; j >= 0; j--) {
+      if (elements[j].type === 'formula' && elements[j].column === el.column) {
+        formulaIdx = j
+        break
+      }
+    }
+
+    if (formulaIdx >= 0) {
+      const formula = elements[formulaIdx]
+      // Parse "where" block into parameter definitions
+      const whereText = el.text.replace(/^where:?\s*/i, '')
+      const paramDefs = whereText
+        .split(/[;,]\s*(?=[A-Za-zα-ωᾱ])/g)
+        .map(s => s.trim())
+        .filter(s => s.length > 3)
+
+      if (paramDefs.length > 0) {
+        formula.parameters = [...(formula.parameters ?? []), ...paramDefs]
+        // Remove the "where" element
+        elements.splice(i, 1)
+      }
+    }
+  }
+}
+
 export function fixBoldMarkers(el: PageElement): void {
   if (!el.text.includes('**')) return
 
@@ -380,12 +421,21 @@ BOLD TEXT:
 ELEMENT TYPES:
 - "provision": Requirements containing "shall", "shall be", "shall be permitted", "must", "is required"
 - "definition": ALL-CAPS terms followed by definition text
-- "formula": Equations with expression and parameters
+- "formula": Equations with expression and parameters — see FORMULA RULES below
 - "table": ANY structured data with columns and rows — see TABLE RULES below
 - "figure": Diagrams/charts/maps — see FIGURE RULES below
 - "exception": Starting with "Exception:"
 - "user_note": Starting with "User Note:"
 - "body": Everything else
+
+FORMULA RULES — CRITICAL:
+- A formula has: expression (the equation), equation number (e.g., "26.11-13"), and parameters
+- Parameters MUST include full definitions, not just variable names. Format: "Rₙ = resonant response factor"
+- The "where" block after a formula defines the variables. Merge it INTO the formula's parameters array.
+  - BAD:  parameters: ["Rₙ", "N₁"]
+  - GOOD: parameters: ["Rₙ = resonant response factor", "N₁ = reduced frequency = n₁Lz̄/Vz̄"]
+- If a "where" block follows a formula, do NOT make it a separate body element. Its content goes in the formula's parameters.
+- Each equation number (26.11-13, 26.11-14, etc.) should be a separate formula element, not combined.
 
 FULL-WIDTH ELEMENTS: If a table or figure clearly spans both columns, set column: "full" and include it — but only if it's genuinely full-width.
 
@@ -633,6 +683,9 @@ export async function clonePageFull(
   // Combine all deduped elements and sort by y_start position
   const allElements = [...dedupedLeft, ...dedupedRight, ...dedupedFull]
   allElements.sort((a, b) => a.bbox.y_start - b.bbox.y_start)
+
+  // Merge "where" blocks into preceding formulas
+  fixFormulas(allElements)
 
   const sections = [...new Set(allElements.map(e => e.section))].filter(Boolean).sort()
   const page: Page = {

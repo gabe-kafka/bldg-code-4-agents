@@ -8,7 +8,7 @@
   ],
   "elements": [
     {
-      "id": "ASCE7-22-26.11-body1",
+      "id": "ASCE7-22-26.11-formula9",
       "type": "body",
       "section": "26.11",
       "text": "The power spectral density of turbulence at the equivalent height of the structure z̄, evaluated at the structure's natural reduced frequency, N₁, is",
@@ -27,16 +27,16 @@
       "_source": "left"
     },
     {
-      "id": "ASCE7-22-26.12-body1",
-      "type": "body",
+      "id": "ASCE7-22-26.12-provision1",
+      "type": "provision",
       "section": "26.12",
       "text": "enclosure classification. To make this determination, each building wall shall be assumed as the windward wall for consideration of the amount of openings present with respect to the remaining building envelope.",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.06,
-        "y_end": 0.1
+        "y_start": 0.05,
+        "y_end": 0.08
       },
       "column": "right",
       "metadata": {
@@ -46,49 +46,20 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-formula1",
+      "id": "ASCE7-22-26.11-formula10",
       "type": "formula",
       "section": "26.11",
-      "text": "Rₙ = 7.47N₁/(1 + 10.3N₁)^(5/3) (26.11-13)",
+      "text": "Rₙ = 7.47N₁/(1 + 10.3N₁)^(5/3)",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
         "y_start": 0.08,
-        "y_end": 0.1
+        "y_end": 0.11
       },
       "column": "left",
       "expression": "Rₙ = 7.47N₁/(1 + 10.3N₁)^(5/3)",
-      "parameters": [
-        "Rₙ",
-        "N₁"
-      ],
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      },
-      "_source": "left"
-    },
-    {
-      "id": "ASCE7-22-26.11-formula2",
-      "type": "formula",
-      "section": "26.11",
-      "text": "N₁ = n₁Lz̄/Vz̄ (26.11-14)",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0.06,
-        "x_end": 0.48,
-        "y_start": 0.1,
-        "y_end": 0.12
-      },
-      "column": "left",
-      "expression": "N₁ = n₁Lz̄/Vz̄",
-      "parameters": [
-        "N₁",
-        "n₁",
-        "Lz̄",
-        "Vz̄"
-      ],
+      "parameters": [],
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -99,13 +70,13 @@
       "id": "ASCE7-22-26.12.3-heading1",
       "type": "body",
       "section": "26.12.3",
-      "text": "**26.12.3 Protection of Glazed Openings** Glazed openings in Risk Category II, III, or IV buildings located in hurricane-prone regions shall be protected as specified in this section.",
+      "text": "26.12.3 Protection of Glazed Openings",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.1,
-        "y_end": 0.13
+        "y_start": 0.08,
+        "y_end": 0.09
       },
       "column": "right",
       "heading": true,
@@ -116,20 +87,43 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-body2",
-      "type": "body",
+      "id": "ASCE7-22-26.12.3-provision1",
+      "type": "provision",
+      "section": "26.12.3",
+      "text": "Glazed openings in Risk Category II, III, or IV buildings located in hurricane-prone regions shall be protected as specified in this section.",
+      "cross_references": [],
+      "bbox": {
+        "x_start": 0.52,
+        "x_end": 0.94,
+        "y_start": 0.09,
+        "y_end": 0.11
+      },
+      "column": "right",
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "right"
+    },
+    {
+      "id": "ASCE7-22-26.11-formula11",
+      "type": "formula",
       "section": "26.11",
-      "text": "where Lz̄ is defined in Equation (26.11-9). The size effect factors related to the height, breadth, and depth of the building are",
+      "text": "N₁ = n₁Lz̄/V̄z̄",
       "cross_references": [
         "26.11-9"
       ],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.12,
-        "y_end": 0.15
+        "y_start": 0.11,
+        "y_end": 0.14
       },
       "column": "left",
+      "expression": "N₁ = n₁Lz̄/V̄z̄",
+      "parameters": [
+        "Lz̄ = defined in Equation (26.11-9)"
+      ],
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -138,17 +132,17 @@
     },
     {
       "id": "ASCE7-22-26.12.3.1-heading1",
-      "type": "provision",
+      "type": "body",
       "section": "26.12.3.1",
-      "text": "**26.12.3.1 Wind-Borne Debris Regions** Glazed openings shall be protected in accordance with Section 26.12.3.2 in the following locations:",
+      "text": "26.12.3.1 Wind-Borne Debris Regions",
       "cross_references": [
         "26.12.3.2"
       ],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.13,
-        "y_end": 0.16
+        "y_start": 0.11,
+        "y_end": 0.12
       },
       "column": "right",
       "heading": true,
@@ -159,27 +153,39 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-formula3",
-      "type": "formula",
+      "id": "ASCE7-22-26.12.3.1-provision1",
+      "type": "provision",
+      "section": "26.12.3.1",
+      "text": "Glazed openings shall be protected in accordance with Section 26.12.3.2 in the following locations:",
+      "cross_references": [
+        "26.12.3.2"
+      ],
+      "bbox": {
+        "x_start": 0.52,
+        "x_end": 0.94,
+        "y_start": 0.12,
+        "y_end": 0.14
+      },
+      "column": "right",
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "right"
+    },
+    {
+      "id": "ASCE7-22-26.11-body6",
+      "type": "body",
       "section": "26.11",
-      "text": "Rₕ = 1/ηₕ - 1/(2ηₕ²)(1 - e^(-2ηₕ)) Rᵦ = 1/ηᵦ - 1/(2ηᵦ²)(1 - e^(-2ηᵦ)) (26.11-15a) Rₗ = 1/ηₗ - 1/(2ηₗ²)(1 - e^(-2ηₗ))",
+      "text": "The size effect factors related to the height, breadth, and depth of the building are",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.15,
-        "y_end": 0.2
+        "y_start": 0.14,
+        "y_end": 0.16
       },
       "column": "left",
-      "expression": "Rₕ = 1/ηₕ - 1/(2ηₕ²)(1 - e^(-2ηₕ))",
-      "parameters": [
-        "Rₕ",
-        "ηₕ",
-        "Rᵦ",
-        "ηᵦ",
-        "Rₗ",
-        "ηₗ"
-      ],
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -195,8 +201,8 @@
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.16,
-        "y_end": 0.21
+        "y_start": 0.14,
+        "y_end": 0.19
       },
       "column": "right",
       "metadata": {
@@ -206,18 +212,41 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-body3",
-      "type": "body",
+      "id": "ASCE7-22-26.11-formula12",
+      "type": "formula",
       "section": "26.11",
-      "text": "where the turbulent coherence (correlation) factors in the corresponding directions, evaluated at the natural reduced frequency, are",
+      "text": "Rₕ = 1/ηₕ - 1/2ηₕ²(1 - e^(-2ηₕ))",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.2,
-        "y_end": 0.22
+        "y_start": 0.16,
+        "y_end": 0.18
       },
       "column": "left",
+      "expression": "Rₕ = 1/ηₕ - 1/2ηₕ²(1 - e^(-2ηₕ))",
+      "parameters": [],
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "left"
+    },
+    {
+      "id": "ASCE7-22-26.11-formula13",
+      "type": "formula",
+      "section": "26.11",
+      "text": "Rᵦ = 1/ηᵦ - 1/2ηᵦ²(1 - e^(-2ηᵦ))",
+      "cross_references": [],
+      "bbox": {
+        "x_start": 0.06,
+        "x_end": 0.48,
+        "y_start": 0.18,
+        "y_end": 0.21
+      },
+      "column": "left",
+      "expression": "Rᵦ = 1/ηᵦ - 1/2ηᵦ²(1 - e^(-2ηᵦ))",
+      "parameters": [],
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -228,7 +257,7 @@
       "id": "ASCE7-22-26.12.3.1-body2",
       "type": "body",
       "section": "26.12.3.1",
-      "text": "For Risk Category II buildings and other structures and Risk Category III buildings and other structures, except health care facilities, the wind-borne debris region shall be based on Figure 26.5-1B. For Risk Category III health care facilities, the wind-borne debris region shall be based on Figure 26.5-1C. For Risk Category IV buildings and structures, the wind-borne debris region shall be based on Figure 26.5-1D. Risk categories shall be determined in accordance with Section 1.5.",
+      "text": "For Risk Category II buildings and other structures and Risk Category III buildings and other structures, except health care facilities, the wind-borne debris region shall be based on Figure 26.5-1B. For Risk Category III health care facilities, the wind-borne debris region shall be based on Figure 26.5-1C. For Risk Category IV buildings and other structures, the wind-borne debris region shall be based on Figure 26.5-1D. Risk categories shall be determined in accordance with Section 1.5.",
       "cross_references": [
         "Figure 26.5-1B",
         "Figure 26.5-1C",
@@ -238,8 +267,8 @@
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.21,
-        "y_end": 0.28
+        "y_start": 0.19,
+        "y_end": 0.26
       },
       "column": "right",
       "metadata": {
@@ -249,74 +278,25 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-formula4",
+      "id": "ASCE7-22-26.11-formula14",
       "type": "formula",
       "section": "26.11",
-      "text": "ηₕ = 4.6n₁h/Vz̄ ηᵦ = 4.6n₁B/Vz̄ (26.11-15b) ηₗ = 15.4n₁L/Vz̄",
+      "text": "Rₗ = 1/ηₗ - 1/2ηₗ²(1 - e^(-2ηₗ))",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.22,
-        "y_end": 0.25
+        "y_start": 0.21,
+        "y_end": 0.24
       },
       "column": "left",
-      "expression": "ηₕ = 4.6n₁h/Vz̄",
+      "expression": "Rₗ = 1/ηₗ - 1/2ηₗ²(1 - e^(-2ηₗ))",
       "parameters": [
-        "ηₕ",
-        "n₁",
-        "h",
-        "Vz̄",
-        "ηᵦ",
-        "B",
-        "ηₗ",
-        "L"
-      ],
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      },
-      "_source": "left"
-    },
-    {
-      "id": "ASCE7-22-26.11-body4",
-      "type": "body",
-      "section": "26.11",
-      "text": "The mean hourly wind speed (in ft/s or m/s) at the equivalent structure height, z̄, is",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0.06,
-        "x_end": 0.48,
-        "y_start": 0.25,
-        "y_end": 0.27
-      },
-      "column": "left",
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      },
-      "_source": "left"
-    },
-    {
-      "id": "ASCE7-22-26.11-formula5",
-      "type": "formula",
-      "section": "26.11",
-      "text": "Vz̄ = b̄(z̄/33)^ᾱ(88/60)V (26.11-16)",
-      "cross_references": [],
-      "bbox": {
-        "x_start": 0.06,
-        "x_end": 0.48,
-        "y_start": 0.27,
-        "y_end": 0.29
-      },
-      "column": "left",
-      "expression": "Vz̄ = b̄(z̄/33)^ᾱ(88/60)V",
-      "parameters": [
-        "Vz̄",
-        "b̄",
-        "z̄",
-        "ᾱ",
-        "V"
+        "ηₕ = 4.6n₁h/V̄z̄",
+        "ηᵦ = 4.6n₁B/V̄z̄",
+        "ηₗ = 15.4n₁L/V̄z̄",
+        "the turbulent coherence (correlation) factors in the corresponding directions",
+        "evaluated at the natural reduced frequency"
       ],
       "metadata": {
         "extracted_by": "vision-clone",
@@ -328,13 +308,13 @@
       "id": "ASCE7-22-26.12.3.1-exception1",
       "type": "exception",
       "section": "26.12.3.1",
-      "text": "**EXCEPTION:** Glazing located more than 60 ft (18.3 m) above the ground and more than 30 ft (9.2 m) above aggregate-surfaced roofs, including roofs with gravel or stone ballast, located within 1,500 ft (458 m) of the building shall be permitted to be unprotected.",
+      "text": "EXCEPTION: Glazing located more than 60 ft (18.3 m) above the ground and more than 30 ft (9.2 m) above aggregate-surfaced roofs, including roofs with gravel or stone ballast, located within 1,500 ft (458 m) of the building shall be permitted to be unprotected.",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.28,
-        "y_end": 0.32
+        "y_start": 0.26,
+        "y_end": 0.3
       },
       "column": "right",
       "metadata": {
@@ -344,26 +324,20 @@
       "_source": "right"
     },
     {
-      "id": "ASCE7-22-26.11-formula6",
+      "id": "ASCE7-22-26.11-formula15",
       "type": "formula",
       "section": "26.11",
-      "text": "Vz̄ = b̄(z̄/10)^ᾱV (26.11-16.SI)",
+      "text": "ηₕ = 4.6n₁h/V̄z̄\nηᵦ = 4.6n₁B/V̄z̄\nηₗ = 15.4n₁L/V̄z̄",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.29,
+        "y_start": 0.27,
         "y_end": 0.31
       },
       "column": "left",
-      "expression": "Vz̄ = b̄(z̄/10)^ᾱV",
-      "parameters": [
-        "Vz̄",
-        "b̄",
-        "z̄",
-        "ᾱ",
-        "V"
-      ],
+      "expression": "ηₕ = 4.6n₁h/V̄z̄\nηᵦ = 4.6n₁B/V̄z̄\nηₗ = 15.4n₁L/V̄z̄",
+      "parameters": [],
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -371,14 +345,31 @@
       "_source": "left"
     },
     {
-      "id": "ASCE7-22-26.11-body5",
+      "id": "ASCE7-22-26.12.3.2-heading1",
+      "type": "body",
+      "section": "26.12.3.2",
+      "text": "26.12.3.2 Protection Requirements for Glazed Openings",
+      "cross_references": [],
+      "bbox": {
+        "x_start": 0.52,
+        "x_end": 0.94,
+        "y_start": 0.3,
+        "y_end": 0.32
+      },
+      "column": "right",
+      "heading": true,
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "right"
+    },
+    {
+      "id": "ASCE7-22-26.11-body8",
       "type": "body",
       "section": "26.11",
-      "text": "where b̄ and ᾱ are constants listed in Table 26.11-1, z̄ is obtained from Section 26.11.4, and V is the basic wind speed, mi/h (m/s).",
-      "cross_references": [
-        "Table 26.11-1",
-        "26.11.4"
-      ],
+      "text": "The mean hourly wind speed (in ft/s or m/s) at the equivalent structure height, z̄, is",
+      "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
@@ -393,15 +384,14 @@
       "_source": "left"
     },
     {
-      "id": "ASCE7-22-26.12.3.2-heading1",
+      "id": "ASCE7-22-26.12.3.2-provision1",
       "type": "provision",
       "section": "26.12.3.2",
-      "text": "**26.12.3.2 Protection Requirements for Glazed Openings** Glazing in buildings requiring protection shall be impact resistant or be protected with an impact-protective system. Impact-protective systems and impact-resistant glazing shall be subjected to missile test and cyclic pressure differential tests in accordance with ASTM E1996 as applicable. Testing to demonstrate compliance with ASTM E1996 shall be in accordance with ASTM E1886. Impact-resistant glazing and impact-protective systems shall comply with the postfail criteria of Section 4 of ASTM E1996 based on the missile required by Table 3 or Table 4 of ASTM E1996. Glazing in sectional doors, rolling doors, and flexible doors shall be subjected to missile tests and cyclic pressure differential tests in accordance with ANSI/DASMA 115 as applicable.",
+      "text": "Glazing in buildings requiring protection shall be impact resistant or protected with an impact-protective system. Impact-protective systems and impact-resistant glazing shall be subjected to missile test and cyclic pressure differential tests in accordance with ASTM E1886 as applicable. Testing to demonstrate compliance with ASTM E1996 shall be in accordance with ASTM E1886. Impact-resistant glazing and impact-protective systems shall comply with the postfall criteria of Section 3 or Table 4 of ASTM E1996. Glazing in additional doors, rolling doors, flexible doors shall be subjected to missile tests and cyclic pressure differential tests in accordance with ANSI/DASMA 115 as applicable.",
       "cross_references": [
-        "ASTM E1996",
         "ASTM E1886",
-        "Section 4",
-        "Table 3",
+        "ASTM E1996",
+        "Section 3",
         "Table 4",
         "ANSI/DASMA 115"
       ],
@@ -409,10 +399,9 @@
         "x_start": 0.52,
         "x_end": 0.94,
         "y_start": 0.32,
-        "y_end": 0.43
+        "y_end": 0.42
       },
       "column": "right",
-      "heading": true,
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
@@ -420,10 +409,61 @@
       "_source": "right"
     },
     {
+      "id": "ASCE7-22-26.11-formula16",
+      "type": "formula",
+      "section": "26.11",
+      "text": "V̄z̄ = b̄(z̄/33)^ᾱ(88/60)V",
+      "cross_references": [
+        "26.11-1"
+      ],
+      "bbox": {
+        "x_start": 0.06,
+        "x_end": 0.48,
+        "y_start": 0.33,
+        "y_end": 0.36
+      },
+      "column": "left",
+      "expression": "V̄z̄ = b̄(z̄/33)^ᾱ(88/60)V",
+      "parameters": [],
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "left"
+    },
+    {
+      "id": "ASCE7-22-26.11-formula17",
+      "type": "formula",
+      "section": "26.11",
+      "text": "V̄z̄ = b̄(z̄/10)^ᾱV",
+      "cross_references": [
+        "26.11-1",
+        "26.11.4"
+      ],
+      "bbox": {
+        "x_start": 0.06,
+        "x_end": 0.48,
+        "y_start": 0.36,
+        "y_end": 0.39
+      },
+      "column": "left",
+      "expression": "V̄z̄ = b̄(z̄/10)^ᾱV",
+      "parameters": [
+        "b̄ and ᾱ are constants listed in Table 26.11-1",
+        "z̄ is obtained from Section 26.11.4",
+        "V is the basic wind speed, mi/h (m/s)"
+      ],
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "left"
+    },
+    {
       "id": "ASCE7-22-26.11.6-heading1",
-      "type": "provision",
+      "type": "body",
       "section": "26.11.6",
-      "text": "26.11.6 Rational Analysis In lieu of the procedure defined in Sections 26.11.4 and 26.11.5, determination of the gust-effect factor by any rational analysis defined in the recognized literature is permitted.",
+      "text": "**26.11.6 Rational Analysis** In lieu of the procedure defined in Sections 26.11.4 and 26.11.5, determination of the gust-effect factor by any rational analysis defined in the recognized literature is permitted.",
       "cross_references": [
         "26.11.4",
         "26.11.5"
@@ -431,8 +471,8 @@
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.33,
-        "y_end": 0.36
+        "y_start": 0.39,
+        "y_end": 0.42
       },
       "column": "left",
       "heading": true,
@@ -446,13 +486,13 @@
       "id": "ASCE7-22-26.11.7-heading1",
       "type": "provision",
       "section": "26.11.7",
-      "text": "26.11.7 Limitations Where combined gust-effect factors and pressure coefficients (GCₚ), (GCₚᵢ), and (GCₚf) are given in figures and tables, the gust-effect factor shall not be determined separately.",
+      "text": "**26.11.7 Limitations** Where combined gust-effect factors and pressure coefficients (GCₚ), (GCₚᵢ), and (GCₚf) are given in figures and tables, the gust-effect factor shall not be determined separately.",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.36,
-        "y_end": 0.39
+        "y_start": 0.42,
+        "y_end": 0.45
       },
       "column": "left",
       "heading": true,
@@ -463,16 +503,40 @@
       "_source": "left"
     },
     {
+      "id": "ASCE7-22-26.12.3.2-provision2",
+      "type": "provision",
+      "section": "26.12.3.2",
+      "text": "Glazing and impact-protective systems in buildings and other structures classified as Risk Category IV in accordance with Section 1.5 shall comply with the \"enhanced protection\" requirements of Table 3 of ASTM E1996. Glazing and impact-protective systems in all other buildings covered by Section 26.12.3.1 shall comply with the \"basic protection\" requirements of Table 3 of ASTM E1996.",
+      "cross_references": [
+        "Section 1.5",
+        "Table 3",
+        "ASTM E1996",
+        "Section 26.12.3.1"
+      ],
+      "bbox": {
+        "x_start": 0.52,
+        "x_end": 0.94,
+        "y_start": 0.42,
+        "y_end": 0.48
+      },
+      "column": "right",
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "right"
+    },
+    {
       "id": "ASCE7-22-26.12-heading1",
       "type": "body",
       "section": "26.12",
-      "text": "26.12 ENCLOSURE CLASSIFICATION",
+      "text": "**26.12 ENCLOSURE CLASSIFICATION**",
       "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
-        "y_start": 0.39,
-        "y_end": 0.41
+        "y_start": 0.45,
+        "y_end": 0.47
       },
       "column": "left",
       "heading": true,
@@ -486,54 +550,10 @@
       "id": "ASCE7-22-26.12.1-heading1",
       "type": "provision",
       "section": "26.12.1",
-      "text": "26.12.1 General For the purpose of determining internal pressure coefficients, buildings and other structures for which internal pressure coefficients (GCₚᵢ) apply shall be classified as enclosed, partially enclosed, partially open, or open, as defined in Section 26.2. If a building or other structure satisfies both the \"open\" and \"partially enclosed\" enclosure classification definitions, it shall not be classified as a \"partially open\" building or other structure.",
+      "text": "**26.12.1 General** For the purpose of determining internal pressure coefficients, buildings and other structures for which internal pressure coefficients (GCₚᵢ) apply shall be classified as enclosed, partially enclosed, partially open, or open, as defined in Section 26.2. If a building or other structure satisfies both the \"open\" and \"partially enclosed\" enclosure classification definitions, it shall be classified as a \"partially open\" building or other structure.",
       "cross_references": [
         "26.2"
       ],
-      "bbox": {
-        "x_start": 0.06,
-        "x_end": 0.48,
-        "y_start": 0.41,
-        "y_end": 0.47
-      },
-      "column": "left",
-      "heading": true,
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      },
-      "_source": "left"
-    },
-    {
-      "id": "ASCE7-22-26.12.3.2-provision1",
-      "type": "provision",
-      "section": "26.12.3.2",
-      "text": "Glazing and impact-protective systems in buildings and other structures classified as Risk Category IV in accordance with Section 1.5 shall comply with the \"enhanced protection\" requirements of Table 3 of ASTM E1996. Glazing and impact-protective systems in all other buildings covered by Section 26.12.3.1 shall comply with the \"basic protection\" requirements of Table 3 of ASTM E1996.",
-      "cross_references": [
-        "Section 1.5",
-        "Table 3",
-        "ASTM E1996",
-        "Section 26.12.3.1"
-      ],
-      "bbox": {
-        "x_start": 0.52,
-        "x_end": 0.94,
-        "y_start": 0.43,
-        "y_end": 0.48
-      },
-      "column": "right",
-      "metadata": {
-        "extracted_by": "vision-clone",
-        "qc_status": "pending"
-      },
-      "_source": "right"
-    },
-    {
-      "id": "ASCE7-22-26.12.2-heading1",
-      "type": "provision",
-      "section": "26.12.2",
-      "text": "26.12.2 Openings A determination shall be made of the amount of openings in the building envelope for use in determining the enclosure classification. To make this determination, each building wall shall be assumed as the windward wall for consideration of the amount of openings present with respect to the remaining building envelope.",
-      "cross_references": [],
       "bbox": {
         "x_start": 0.06,
         "x_end": 0.48,
@@ -552,7 +572,7 @@
       "id": "ASCE7-22-26.12.3.2-exception1",
       "type": "exception",
       "section": "26.12.3.2",
-      "text": "**EXCEPTION:** When approved, other testing methods and/or performance criteria shall be permitted to be used to demonstrate compliance with all provisions of this section.",
+      "text": "EXCEPTION: When approved, other testing methods and/or performance criteria shall be permitted to be used to demonstrate compliance with all provisions of this section.",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
@@ -569,15 +589,15 @@
     },
     {
       "id": "ASCE7-22-26.13-heading1",
-      "type": "provision",
+      "type": "body",
       "section": "26.13",
-      "text": "**26.13 INTERNAL PRESSURE COEFFICIENTS**",
+      "text": "26.13 INTERNAL PRESSURE COEFFICIENTS",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.52,
-        "y_end": 0.54
+        "y_start": 0.51,
+        "y_end": 0.53
       },
       "column": "right",
       "heading": true,
@@ -586,6 +606,26 @@
         "qc_status": "pending"
       },
       "_source": "right"
+    },
+    {
+      "id": "ASCE7-22-26.12.2-heading1",
+      "type": "provision",
+      "section": "26.12.2",
+      "text": "**26.12.2 Openings** A determination shall be made of the amount of openings in the building envelope for use in determining the",
+      "cross_references": [],
+      "bbox": {
+        "x_start": 0.06,
+        "x_end": 0.48,
+        "y_start": 0.52,
+        "y_end": 0.54
+      },
+      "column": "left",
+      "heading": true,
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "left"
     },
     {
       "id": "ASCE7-22-26.13-provision1",
@@ -599,8 +639,8 @@
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.54,
-        "y_end": 0.57
+        "y_start": 0.53,
+        "y_end": 0.56
       },
       "column": "right",
       "metadata": {
@@ -613,16 +653,35 @@
       "id": "ASCE7-22-26.13.1-heading1",
       "type": "body",
       "section": "26.13.1",
-      "text": "**26.13.1 Reduction Factor for Large-Volume Buildings, Ri** For a partially enclosed building containing a single,",
+      "text": "26.13.1 Reduction Factor for Large-Volume Buildings, Ri",
       "cross_references": [],
       "bbox": {
         "x_start": 0.52,
         "x_end": 0.94,
-        "y_start": 0.57,
-        "y_end": 0.6
+        "y_start": 0.56,
+        "y_end": 0.58
       },
       "column": "right",
       "heading": true,
+      "metadata": {
+        "extracted_by": "vision-clone",
+        "qc_status": "pending"
+      },
+      "_source": "right"
+    },
+    {
+      "id": "ASCE7-22-26.13.1-body1",
+      "type": "body",
+      "section": "26.13.1",
+      "text": "For a partially enclosed building containing a single,",
+      "cross_references": [],
+      "bbox": {
+        "x_start": 0.52,
+        "x_end": 0.94,
+        "y_start": 0.58,
+        "y_end": 0.59
+      },
+      "column": "right",
       "metadata": {
         "extracted_by": "vision-clone",
         "qc_status": "pending"
