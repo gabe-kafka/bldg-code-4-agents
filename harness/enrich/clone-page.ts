@@ -222,6 +222,7 @@ function normalizePage(
     }
 
     el.metadata = { extracted_by: 'vision-clone', qc_status: 'pending' }
+    fixBoldMarkers(el)
     elements.push(el)
   }
 
@@ -233,6 +234,49 @@ function normalizePage(
     page: pageNum,
     section_range: [sections[0] ?? '', sections[sections.length - 1] ?? ''],
     elements,
+  }
+}
+
+/**
+ * Fix bold marker abuse: if ** wraps more than ~80 chars or the entire element,
+ * the model bolded too much. Split into heading + body, or strip the markers.
+ *
+ * Common patterns:
+ * - "**26.12.3.2 Title** Body text..." → heading:true, text: "26.12.3.2 Title\nBody text..."
+ * - "**Entire paragraph is bold for no reason**" → strip markers
+ * - "**TERM:** definition text" → correct, leave alone
+ */
+export function fixBoldMarkers(el: PageElement): void {
+  if (!el.text.includes('**')) return
+
+  // Find all bold spans
+  const boldSpans = [...el.text.matchAll(/\*\*([^*]+)\*\*/g)]
+  if (boldSpans.length === 0) return
+
+  // Check if there's a single bold span that covers most of the text
+  const totalBoldLen = boldSpans.reduce((sum, m) => sum + m[1].length, 0)
+  const textLen = el.text.replace(/\*\*/g, '').length
+
+  // If bold covers >60% of text and text is long (>80 chars), it's a bug
+  if (totalBoldLen > textLen * 0.6 && textLen > 80) {
+    // Check if it starts with a section number — that's a heading merged with body
+    const match = el.text.match(/^\*\*(\d+\.\d+[\d.]*\s+[^*]{5,60})\*\*\s*(.+)/s)
+    if (match) {
+      // Split: heading portion becomes the element, rest is body
+      // Set heading flag and clean the text
+      el.heading = true
+      el.text = match[1] + '\n' + match[2]
+      return
+    }
+
+    // Check if it starts with a bold term (definition pattern) — leave short terms alone
+    const termMatch = el.text.match(/^\*\*([A-Z][A-Z\s,]+:?)\*\*/)
+    if (termMatch && termMatch[1].length < 60) {
+      return // This is a legitimate bold term, leave it
+    }
+
+    // Otherwise strip all bold markers — the whole thing shouldn't be bold
+    el.text = el.text.replace(/\*\*/g, '')
   }
 }
 
@@ -436,6 +480,7 @@ ${hintsBlock}`,
       if (Array.isArray(re.parameters)) el.parameters = re.parameters.map(String)
     }
     el.metadata = { extracted_by: 'vision-clone', qc_status: 'pending' }
+    fixBoldMarkers(el)
     return el
   })
 }

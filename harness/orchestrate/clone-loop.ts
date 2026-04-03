@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'fs'
 import { resolve } from 'path'
 import Anthropic from '@anthropic-ai/sdk'
-import { clonePageFull, getV1TextHints } from '../enrich/clone-page.ts'
+import { clonePageFull, getV1TextHints, fixBoldMarkers } from '../enrich/clone-page.ts'
 import { sendMessage } from '../lib/api.ts'
 import { models, paths, chapterOffsets, thresholds } from '../config.ts'
 import type { Page } from '../../src/types.ts'
@@ -234,6 +234,7 @@ function normalizeRaw(
       el.text = `${el.caption ?? el.text}\n\n${desc}${content ? `\n\n[Structured content: ${JSON.stringify(content)}]` : ''}`
     }
     el.metadata = { extracted_by: 'vision-clone', qc_status: 'pending' }
+    fixBoldMarkers(el)
 
     return el
   })
