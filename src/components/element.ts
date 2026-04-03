@@ -188,10 +188,12 @@ function renderTable(wrapper: HTMLElement, data: PageElement): void {
   table.append(thead)
 
   const tbody = el('tbody')
+  const colCount = data.columns.length
   for (const row of data.rows) {
     const tr = el('tr')
-    for (const cell of row) {
-      const isNum = /^[\d.,\-+]+$/.test(cell.trim())
+    for (let ci = 0; ci < colCount; ci++) {
+      const cell = row[ci] ?? ''
+      const isNum = /^[\d.,\-+/()\s]+$/.test(cell.trim()) && cell.trim().length > 0
       tr.append(el('td', isNum ? { className: 'num' } : {}, [cell]))
     }
     tbody.append(tr)

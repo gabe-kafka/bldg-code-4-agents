@@ -524,6 +524,7 @@
   border-collapse: collapse;
   font-size: 9px;
   margin: var(--sp-1) 0;
+  border: 1px solid var(--border);
 }
 
 .el-table th {
@@ -532,19 +533,33 @@
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  padding: 1px var(--sp-1);
-  font-weight: 400;
+  border: 1px solid var(--border);
+  padding: 2px var(--sp-2);
+  font-weight: 600;
+  background: var(--surface);
+  white-space: nowrap;
 }
 
 .el-table td {
-  padding: 1px var(--sp-1);
-  border-bottom: 1px solid var(--subtle);
+  padding: 2px var(--sp-2);
+  border: 1px solid var(--subtle);
+  vertical-align: top;
 }
 
 .el-table td.num {
   text-align: right;
   font-feature-settings: 'tnum' 1;
+}
+
+.el-table tr:hover td {
+  background: var(--hover-bg);
+}
+
+/* Empty cell indicator */
+.el-table td:empty::after {
+  content: '—';
+  color: var(--dim);
+  opacity: 0.3;
 }
 
 /* --- FORMULA --- */
