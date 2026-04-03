@@ -252,6 +252,62 @@ function normalizePage(
  * Post-process: merge "where" blocks into preceding formula parameters.
  * Also split combined formulas (multiple equation numbers in one element).
  */
+/**
+ * Normalize formula expressions to clean LaTeX.
+ * Catches Unicode math symbols the model may have used instead of LaTeX.
+ */
+export function normalizeLatex(expr: string): string {
+  let s = expr
+
+  // Unicode subscript digits → LaTeX subscripts
+  const subDigits: Record<string, string> = { '₀': '_0', '₁': '_1', '₂': '_2', '₃': '_3', '₄': '_4', '₅': '_5', '₆': '_6', '₇': '_7', '₈': '_8', '₉': '_9' }
+  for (const [u, l] of Object.entries(subDigits)) s = s.replaceAll(u, l)
+
+  // Unicode superscript digits → LaTeX superscripts
+  const supDigits: Record<string, string> = { '⁰': '^0', '¹': '^1', '²': '^2', '³': '^3', '⁴': '^4', '⁵': '^5', '⁶': '^6', '⁷': '^7', '⁸': '^8', '⁹': '^9' }
+  for (const [u, l] of Object.entries(supDigits)) s = s.replaceAll(u, l)
+
+  // Unicode Greek → LaTeX Greek
+  const greek: Record<string, string> = {
+    'α': '\\alpha', 'β': '\\beta', 'γ': '\\gamma', 'δ': '\\delta',
+    'ε': '\\epsilon', 'ζ': '\\zeta', 'η': '\\eta', 'θ': '\\theta',
+    'λ': '\\lambda', 'μ': '\\mu', 'ν': '\\nu', 'π': '\\pi',
+    'ρ': '\\rho', 'σ': '\\sigma', 'τ': '\\tau', 'φ': '\\phi',
+    'ω': '\\omega', 'Γ': '\\Gamma', 'Δ': '\\Delta', 'Σ': '\\Sigma',
+  }
+  for (const [u, l] of Object.entries(greek)) {
+    // Only replace if not already in a LaTeX command
+    s = s.replace(new RegExp(`(?<!\\\\)${u}`, 'g'), l)
+  }
+
+  // Unicode combining bars/hats → LaTeX
+  s = s.replace(/(\w)\u0304/g, '\\bar{$1}')   // combining macron (ā → \bar{a})
+  s = s.replace(/(\w)\u0302/g, '\\hat{$1}')   // combining circumflex (â → \hat{a})
+  s = s.replace(/ᾱ/g, '\\bar{\\alpha}')
+  s = s.replace(/α̂/g, '\\hat{\\alpha}')
+  s = s.replace(/z̄/g, '\\bar{z}')
+  s = s.replace(/V̄/g, '\\bar{V}')
+  s = s.replace(/b̄/g, '\\bar{b}')
+  s = s.replace(/ε̄/g, '\\bar{\\epsilon}')
+
+  // Common patterns: adjacent letter+digit without subscript → add subscript
+  // e.g., "Rn" → "R_n" if followed by space or operator, but NOT "Rn" in a word
+  // This is tricky — only do it for known ASCE variable patterns
+  s = s.replace(/\bR([nhBL])\b/g, 'R_$1')
+  s = s.replace(/\bN([1])\b/g, 'N_$1')
+  s = s.replace(/\bn([1])\b/g, 'n_$1')
+  s = s.replace(/\bK([zdtei])\b/g, 'K_$1')
+  s = s.replace(/\bq([zhp])\b/g, 'q_$1')
+  s = s.replace(/\bG([f])\b/g, 'G_$1')
+  s = s.replace(/\bC([p])\b/g, 'C_$1')
+
+  // ≤ ≥ → \leq \geq
+  s = s.replace(/≤/g, '\\leq')
+  s = s.replace(/≥/g, '\\geq')
+
+  return s
+}
+
 export function fixFormulas(elements: PageElement[]): void {
   // Merge "where" blocks into preceding formula
   for (let i = elements.length - 1; i >= 0; i--) {
@@ -284,6 +340,13 @@ export function fixFormulas(elements: PageElement[]): void {
         elements.splice(i, 1)
       }
     }
+  }
+
+  // Normalize all formula expressions and parameters to LaTeX
+  for (const el of elements) {
+    if (el.type !== 'formula') continue
+    if (el.expression) el.expression = normalizeLatex(el.expression)
+    if (el.parameters) el.parameters = el.parameters.map(normalizeLatex)
   }
 }
 
@@ -476,12 +539,24 @@ ELEMENT TYPES:
 - "body": Everything else
 
 FORMULA RULES — CRITICAL:
-- A formula has: expression (the equation), equation number (e.g., "26.11-13"), and parameters
-- Parameters MUST include full definitions, not just variable names. Format: "Rₙ = resonant response factor"
-- The "where" block after a formula defines the variables. Merge it INTO the formula's parameters array.
+- A formula has: expression (the equation in LaTeX), equation number (e.g., "26.11-13"), and parameters
+- The "expression" field MUST be valid LaTeX math notation. Examples:
+  - "R_n = \\frac{7.47 N_1}{(1 + 10.3 N_1)^{5/3}}"
+  - "q_z = 0.00256 K_z K_{zt} K_d K_e V^2"
+  - "\\bar{V}_{\\bar{z}} = \\bar{b} \\left(\\frac{\\bar{z}}{33}\\right)^{\\bar{\\alpha}} \\frac{88}{60} V"
+- Use proper LaTeX for:
+  - Subscripts: K_z not Kz, R_h not Rh, N_1 not N₁
+  - Superscripts: V^2, (...)^{5/3}
+  - Fractions: \\frac{numerator}{denominator}
+  - Greek letters: \\alpha, \\beta, \\eta, \\epsilon, \\theta, \\omega
+  - Bars/hats: \\bar{b}, \\hat{\\alpha}, \\bar{z}, \\bar{V}
+  - Parentheses: \\left( ... \\right)
+- Do NOT use Unicode subscripts/superscripts (₁, ², ᾱ). Use LaTeX notation.
+- Parameters MUST include full definitions, not just variable names.
   - BAD:  parameters: ["Rₙ", "N₁"]
-  - GOOD: parameters: ["Rₙ = resonant response factor", "N₁ = reduced frequency = n₁Lz̄/Vz̄"]
-- If a "where" block follows a formula, do NOT make it a separate body element. Its content goes in the formula's parameters.
+  - GOOD: parameters: ["R_n = resonant response factor", "N_1 = reduced frequency = n_1 L_{\\bar{z}} / \\bar{V}_{\\bar{z}}"]
+- The "where" block after a formula defines the variables. Merge it INTO the formula's parameters array.
+- If a "where" block follows a formula, do NOT make it a separate body element.
 - Each equation number (26.11-13, 26.11-14, etc.) should be a separate formula element, not combined.
 
 FULL-WIDTH ELEMENTS: If a table or figure clearly spans both columns, set column: "full" and include it — but only if it's genuinely full-width.

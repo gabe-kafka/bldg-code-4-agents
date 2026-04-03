@@ -1,6 +1,8 @@
 import { el } from '../lib/dom.ts'
 import { highlightEl, setOverlay, setPage, resolveElementPage } from '../state.ts'
 import type { PageElement } from '../types.ts'
+import katex from 'katex'
+import 'katex/dist/katex.min.css'
 
 export function createElement(data: PageElement): HTMLElement {
   // Headings get rendered as bold section-heading style, not as regular elements
@@ -122,14 +124,42 @@ function renderBoldText(text: string): HTMLElement {
   return container
 }
 
+function renderLatex(latex: string): HTMLElement {
+  const container = el('span', {})
+  try {
+    container.innerHTML = katex.renderToString(latex, {
+      throwOnError: false,
+      displayMode: false,
+      trust: true,
+    })
+  } catch {
+    container.textContent = latex
+  }
+  return container
+}
+
 function renderFormula(wrapper: HTMLElement, data: PageElement): void {
   if (data.expression) {
-    wrapper.append(el('div', { className: 'el-expression' }, [data.expression]))
+    const exprDiv = el('div', { className: 'el-expression' })
+    exprDiv.append(renderLatex(data.expression))
+    wrapper.append(exprDiv)
   }
   if (data.parameters && data.parameters.length > 0) {
     const params = el('div', { className: 'el-params' })
     for (const p of data.parameters) {
-      params.append(el('div', {}, [p]))
+      // Parameters may contain inline LaTeX (variable = description)
+      const paramDiv = el('div', {})
+      // Try to render the variable part as LaTeX
+      const eqIdx = p.indexOf('=')
+      if (eqIdx > 0 && eqIdx < 30) {
+        const varPart = p.slice(0, eqIdx).trim()
+        const descPart = p.slice(eqIdx + 1).trim()
+        paramDiv.append(renderLatex(varPart))
+        paramDiv.append(document.createTextNode(' = ' + descPart))
+      } else {
+        paramDiv.append(document.createTextNode(p))
+      }
+      params.append(paramDiv)
     }
     wrapper.append(params)
   }
