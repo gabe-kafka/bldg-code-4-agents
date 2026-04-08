@@ -1,6 +1,6 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs'
 import { resolve } from 'path'
-import { models, paths, chapterOffsets } from '../config.ts'
+import { models, paths, chapterOffsets, stdSlug, pathSlug } from '../config.ts'
 import { sendMessage } from '../lib/api.ts'
 import type { Page, PageElement, BBox, ColumnPlacement, ElementType } from '../../src/types.ts'
 
@@ -152,11 +152,11 @@ Return ONLY valid JSON with this structure:
   "section_range": ["first_section", "last_section"],
   "elements": [
     {
-      "id": "ASCE7-22-SECTION-TYPE_PREFIX-N",
+      "id": "${stdSlug(standard)}-SECTION-TYPE_PREFIX-N",
       "type": "definition|formula|table|procedure|figure|exception|user_note|body",
-      "section": "26.X.Y",
+      "section": "${chapter}.X.Y",
       "text": "Full text content...",
-      "cross_references": ["ASCE7-22-27", ...],
+      "cross_references": ["${stdSlug(standard)}-27", ...],
       "bbox": { "x_start": 0.0, "x_end": 0.48, "y_start": 0.05, "y_end": 0.15 },
       "column": "left|right|full",
       "heading": true,  // SET THIS TO TRUE for bold section headings/titles, omit or false for body text
@@ -178,7 +178,7 @@ Return ONLY valid JSON with this structure:
   ]
 }
 
-ID FORMAT: ASCE7-22-{section}-{type_prefix}{N}
+ID FORMAT: ${stdSlug(standard)}-{section}-{type_prefix}{N}
 Type prefixes: D=definition, E=equation, T=table, PR=procedure, F=figure, X=exception, N=user_note, B=body, H=heading
 ${hintsBlock}`,
           },
@@ -216,7 +216,7 @@ function normalizePage(
     const column = normalizeColumn(String(re.column ?? 'left'))
 
     const el: PageElement = {
-      id: String(re.id ?? `ASCE7-22-${chapter}-CLONE-${pageNum}-${elements.length}`),
+      id: String(re.id ?? `${stdSlug(standard)}-${chapter}-CLONE-${pageNum}-${elements.length}`),
       type,
       section: String(re.section ?? ''),
       text: String(re.text ?? ''),
@@ -606,7 +606,7 @@ export async function cloneColumn(
           },
           {
             type: 'text',
-            text: `Extract ONLY the ${colDesc} of ASCE 7-22 page ${pageNum}, chapter ${chapter}.
+            text: `Extract ONLY the ${colDesc} of ${standard} page ${pageNum}, chapter ${chapter}.
 
 STRICT SPATIAL RULE: This page has two columns of text. You are extracting ONLY the ${column} column.
 - The ${column === 'left' ? 'left column occupies the left half of the page (x ≈ 0.06 to 0.48)' : 'right column occupies the right half of the page (x ≈ 0.52 to 0.94)'}.
@@ -691,7 +691,7 @@ Return ONLY valid JSON:
 {
   "elements": [
     {
-      "id": "ASCE7-22-{section}-{prefix}{N}",
+      "id": "${stdSlug(standard)}-{section}-{prefix}{N}",
       "type": "...",
       "section": "26.X.Y",
       "text": "COMPLETE untruncated text...",
@@ -732,7 +732,7 @@ ${hintsBlock}${correctionsBlock}`,
     const elColumn = String(re.column) === 'full' ? 'full' as const : column
 
     const el: PageElement = {
-      id: String(re.id ?? `ASCE7-22-${chapter}-${column.toUpperCase()}-${pageNum}-${i}`),
+      id: String(re.id ?? `${stdSlug(standard)}-${chapter}-${column.toUpperCase()}-${pageNum}-${i}`),
       type,
       section: String(re.section ?? ''),
       text: String(re.text ?? ''),
@@ -965,11 +965,12 @@ export async function clonePageFull(
   chapter: number,
   pageNum: number,
   v1TextHints?: string[],
-  corrections?: string[]
+  corrections?: string[],
+  standard: string = 'ASCE 7-22'
 ): Promise<Page> {
   const offset = chapterOffsets[chapter] ?? 260
   const pngIndex = pageNum - offset
-  const pngDir = resolve(paths.v1Root, 'output', 'pages', `asce722-ch${chapter}`)
+  const pngDir = resolve(paths.v1Root, 'output', 'pages', `${pathSlug(standard)}-ch${chapter}`)
   const pngFile = `page-${String(pngIndex).padStart(3, '0')}.png`
   const pngPath = resolve(pngDir, pngFile)
 
@@ -982,8 +983,8 @@ export async function clonePageFull(
   // Clone both columns in parallel
   console.log(`    Cloning left + right columns in parallel...`)
   const [leftElements, rightElements] = await Promise.all([
-    cloneColumn(pngPath, pageNum, chapter, 'ASCE 7-22', 'left', v1TextHints, corrections),
-    cloneColumn(pngPath, pageNum, chapter, 'ASCE 7-22', 'right', v1TextHints, corrections),
+    cloneColumn(pngPath, pageNum, chapter, standard, 'left', v1TextHints, corrections),
+    cloneColumn(pngPath, pageNum, chapter, standard, 'right', v1TextHints, corrections),
   ])
   console.log(`    ${leftElements.length}L + ${rightElements.length}R`)
 
@@ -1036,7 +1037,7 @@ export async function clonePageFull(
 
   const sections = [...new Set(allElements.map(e => e.section))].filter(Boolean).sort()
   const page: Page = {
-    standard: 'ASCE 7-22',
+    standard,
     chapter,
     page: pageNum,
     section_range: [sections[0] ?? '', sections[sections.length - 1] ?? ''],

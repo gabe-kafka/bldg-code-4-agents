@@ -18,7 +18,7 @@
 import { existsSync, readFileSync, writeFileSync, readdirSync, mkdirSync, copyFileSync, renameSync } from 'fs'
 import { resolve } from 'path'
 import pLimit from 'p-limit'
-import { paths, chapterOffsets, thresholds } from './config.ts'
+import { paths, chapterOffsets, thresholds, stdSlug, pathSlug } from './config.ts'
 import { clonePageFull, getV1TextHints } from './enrich/clone-page.ts'
 import { sendMessage } from './lib/api.ts'
 import { models } from './config.ts'
@@ -34,8 +34,9 @@ function parseChapterArg(raw: string): { chapter: number; rest: string } {
 }
 
 const { chapter: CHAPTER, rest: ARG } = parseChapterArg(process.argv[2] ?? '')
+const STANDARD = process.env.HARNESS_STANDARD ?? 'ASCE 7-22'
 const OFFSET = chapterOffsets[CHAPTER] ?? 260
-const PNG_DIR = resolve(paths.v1Root, 'output', 'pages', `asce722-ch${CHAPTER}`)
+const PNG_DIR = resolve(paths.v1Root, 'output', 'pages', `${pathSlug(STANDARD)}-ch${CHAPTER}`)
 const DATA_DIR = resolve(paths.root, 'public', 'data', `ch${CHAPTER}`)
 const PROGRESS_FILE = resolve(paths.artifacts, `ch${CHAPTER}`, 'step-progress.json')
 
@@ -79,7 +80,7 @@ async function audit(pngPath: string, page: Page): Promise<{ score: number; issu
       role: 'user',
       content: [
         { type: 'image', source: { type: 'base64', media_type: 'image/png', data: imageData } },
-        { type: 'text', text: `Audit this extraction of ASCE 7-22 page ${page.page}.
+        { type: 'text', text: `Audit this extraction of ${STANDARD} page ${page.page}.
 
 EXTRACTED (${page.elements.length} elements):
 ${summary}
@@ -255,7 +256,7 @@ async function main() {
       try {
         // Clone (writes to live dir — we'll move it)
         const hints = getV1TextHints(CHAPTER, pageNum)
-        const page = await clonePageFull(CHAPTER, pageNum, hints)
+        const page = await clonePageFull(CHAPTER, pageNum, hints, undefined, STANDARD)
 
         // Move new file to reclone dir
         const newJson = resolve(DATA_DIR, `page-${pageNum}.json`)
@@ -398,7 +399,7 @@ async function main() {
       const hints = getV1TextHints(CHAPTER, pageNum)
 
       try {
-        const page = await clonePageFull(CHAPTER, pageNum, hints)
+        const page = await clonePageFull(CHAPTER, pageNum, hints, undefined, STANDARD)
         const auditResult = await audit(pngPath, page)
 
         progress.completed[pageNum] = {
@@ -473,7 +474,7 @@ async function main() {
         console.log(`\n  [iter ${iter}/${MAX_ITERATIONS}]${corrections.length > 0 ? ` (${corrections.length} corrections)` : ''}`)
 
         // Clone with corrections from previous audit
-        const page = await clonePageFull(CHAPTER, pageNum, hints, corrections.length > 0 ? corrections : undefined)
+        const page = await clonePageFull(CHAPTER, pageNum, hints, corrections.length > 0 ? corrections : undefined, STANDARD)
         printSummary(page)
 
         // Audit
@@ -581,7 +582,7 @@ async function main() {
   console.log('\n[1] Cloning (left + right columns)...')
   const hints = getV1TextHints(CHAPTER, pageNum)
   if (hints.length > 0) console.log(`  ${hints.length} V1 text hints loaded`)
-  let page = await clonePageFull(CHAPTER, pageNum, hints)
+  let page = await clonePageFull(CHAPTER, pageNum, hints, undefined, STANDARD)
   printSummary(page)
 
   // Step 2: Audit
@@ -598,7 +599,7 @@ async function main() {
   let iterations = 1
   for (let retry = 0; retry < 2 && auditResult.score < 0.95 && auditResult.issues.length > 0; retry++) {
     console.log(`\n[${3 + retry}] Re-cloning with ${auditResult.issues.length} fixes...`)
-    page = await clonePageFull(CHAPTER, pageNum, hints, auditResult.issues)
+    page = await clonePageFull(CHAPTER, pageNum, hints, auditResult.issues, STANDARD)
     printSummary(page)
 
     console.log('  Re-auditing...')

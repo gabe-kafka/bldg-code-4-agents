@@ -49,6 +49,16 @@ export const thresholds = {
   concurrency: 10,
 }
 
+// --- Standard slug for element IDs: "ASCE 7-22" → "ASCE7-22" ---
+export function stdSlug(standard: string): string {
+  return standard.replace(/\s+/g, '')
+}
+
+// --- Path slug for directories: "ASCE 7-22" → "asce722" (matches V1 convention) ---
+export function pathSlug(standard: string): string {
+  return standard.toLowerCase().replace(/[\s-]+/g, '')
+}
+
 // --- Model config ---
 export const models = {
   enrichment: process.env.HARNESS_MODEL_ENRICHMENT ?? 'claude-sonnet-4-20250514',
